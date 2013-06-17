@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        stopOnError="true"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        colors="true">
+
+    <!-- Test Locations -->
+    <testsuites>
+        <testsuite>
+            <directory>test/afoozle/GithubWebhook</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Coverage Filtering -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/afoozle/GithubWebhook</directory>
+        </whitelist>
+    </filter>
+
+    <!-- Coverage Reports -->
+    <logging>
+        <log type="coverage-html"
+             target="build/phpunit/coverage"
+             charset="UTF-8"
+             yui="true"
+             highlight="true"
+             lowUpperBound="35"
+             highLowerBound="70"
+                />
+        <log type="coverage-clover"
+             target="build/phpunit/coverage.xml"
+                />
+    </logging>
+</phpunit>
