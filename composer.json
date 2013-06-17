@@ -1,0 +1,24 @@
+{
+    "name": "afoozle/GithubWebhook",
+    "description": "Github Webhook tools for php",
+    "keywords": ["github","webhook"],
+    "homepage": "http://github.com/afoozle/GithubWebhook",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Matthew Wheeler",
+            "email": "matt@yurisko.net",
+            "homepage": "http://afoozle.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "psr/log": ">=1.0,<2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {"afoozle": "src/"}
+    }
+}
