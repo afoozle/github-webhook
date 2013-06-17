@@ -2,6 +2,7 @@
 namespace afoozle\GithubWebhook\PayloadMapper;
 
 use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Payload\Repository;
 
 /**
  * Class Payload
@@ -33,6 +34,7 @@ class PayloadMapper implements PayloadMapperInterface {
 
     /**
      * @param $jsonData
+     * @return void
      * @throws \InvalidArgumentException
      */
     public function mapFromJson($jsonData)
@@ -41,10 +43,15 @@ class PayloadMapper implements PayloadMapperInterface {
         if ($parsedData === null) {
             throw new \InvalidArgumentException("Unable to parse json data: $jsonData");
         }
-        $this->mapScalarValues($parsedData);
-        $this->mapCommits($parsedData);
-        $this->mapHeadCommit($parsedData);
-        $this->mapRepository($parsedData);
+        $this->mapFromDataArray($parsedData);
+    }
+
+    public function mapFromDataArray(array $dataArray)
+    {
+        $this->mapScalarValues($dataArray);
+        $this->mapCommits($dataArray);
+        $this->mapHeadCommit($dataArray);
+        $this->mapRepository($dataArray);
     }
 
     /**
@@ -114,6 +121,9 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapRepository(array $parsedData)
     {
-
+        $repositoryObject = new Repository();
+        $repositoryMapper = new RepositoryMapper($repositoryObject);
+        $repositoryMapper->mapFromDataArray($parsedData['repository']);
+        $this->getPayloadObject()->setRepository($repositoryObject);
     }
 }

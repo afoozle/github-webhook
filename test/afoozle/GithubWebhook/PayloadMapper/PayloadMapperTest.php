@@ -226,6 +226,6 @@ ENDJSON;
     public function testMapRepository()
     {
         $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('Repository', $payloadObject->getRepository(), "Repository is not the correct type");
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Repository', $payloadObject->getRepository(), "Repository is not the correct type");
     }
 }
