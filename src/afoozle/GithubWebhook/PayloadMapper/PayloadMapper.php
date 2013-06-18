@@ -1,7 +1,9 @@
 <?php
 namespace afoozle\GithubWebhook\PayloadMapper;
 
+use afoozle\GithubWebhook\Payload\Commit;
 use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Payload\Repository;
 
 /**
  * Class Payload
@@ -33,6 +35,7 @@ class PayloadMapper implements PayloadMapperInterface {
 
     /**
      * @param $jsonData
+     * @return void
      * @throws \InvalidArgumentException
      */
     public function mapFromJson($jsonData)
@@ -41,10 +44,15 @@ class PayloadMapper implements PayloadMapperInterface {
         if ($parsedData === null) {
             throw new \InvalidArgumentException("Unable to parse json data: $jsonData");
         }
-        $this->mapScalarValues($parsedData);
-        $this->mapCommits($parsedData);
-        $this->mapHeadCommit($parsedData);
-        $this->mapRepository($parsedData);
+        $this->mapFromDataArray($parsedData);
+    }
+
+    public function mapFromDataArray(array $dataArray)
+    {
+        $this->mapScalarValues($dataArray);
+        $this->mapCommits($dataArray);
+        $this->mapHeadCommit($dataArray);
+        $this->mapRepository($dataArray);
     }
 
     /**
@@ -98,7 +106,16 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapCommits(array $parsedData)
     {
-
+        if (array_key_exists('commits', $parsedData)){
+            $commitObjects = array();
+            foreach($parsedData['commits'] as $commitData) {
+                $commitObject = new Commit();
+                $commitMapper = new CommitMapper($commitObject);
+                $commitMapper->mapFromDataArray($commitData);
+                $commitObjects[] = $commitObject;
+            }
+            $this->getPayloadObject()->setCommits($commitObjects);
+        }
     }
 
     /**
@@ -106,7 +123,10 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapHeadCommit(array $parsedData)
     {
-
+        $commitObject = new Commit();
+        $commitMapper = new CommitMapper($commitObject);
+        $commitMapper->mapFromDataArray($parsedData);
+        $this->getPayloadObject()->setHeadCommit($commitObject);
     }
 
     /**
@@ -114,6 +134,9 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapRepository(array $parsedData)
     {
-
+        $repositoryObject = new Repository();
+        $repositoryMapper = new RepositoryMapper($repositoryObject);
+        $repositoryMapper->mapFromDataArray($parsedData['repository']);
+        $this->getPayloadObject()->setRepository($repositoryObject);
     }
 }

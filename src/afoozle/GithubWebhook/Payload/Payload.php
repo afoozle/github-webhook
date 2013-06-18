@@ -18,8 +18,7 @@ class Payload {
     private $before = null;
 
     /**
-     * @var array
-     * @todo create proper class for this
+     * @var Commit[]
      */
     private $commits = null;
 
@@ -44,8 +43,7 @@ class Payload {
     private $forced;
 
     /**
-     * @var mixed
-     * @todo create proper class for this
+     * @var Commit
      */
     private $headCommit;
 
@@ -61,8 +59,7 @@ class Payload {
     private $ref;
 
     /**
-     * @var mixed
-     * @todo Create an object for this
+     * @var Repository
      */
     private $repository;
 
@@ -99,7 +96,7 @@ class Payload {
     }
 
     /**
-     * @param array $commits
+     * @param Commit[] $commits
      */
     public function setCommits(array $commits)
     {
@@ -107,7 +104,7 @@ class Payload {
     }
 
     /**
-     * @return array
+     * @return Commit[]
      */
     public function getCommits()
     {
@@ -179,15 +176,15 @@ class Payload {
     }
 
     /**
-     * @param mixed $headCommit
+     * @param Commit $headCommit
      */
-    public function setHeadCommit($headCommit)
+    public function setHeadCommit(Commit $headCommit)
     {
         $this->headCommit = $headCommit;
     }
 
     /**
-     * @return mixed
+     * @return Commit
      */
     public function getHeadCommit()
     {

@@ -11,5 +11,15 @@ namespace afoozle\GithubWebhook\PayloadMapper;
 
 
 interface PayloadMapperInterface {
+    /**
+     * @param string $jsonData
+     * @return mixed
+     */
     public function mapFromJson($jsonData);
+
+    /**
+     * @param array $dataArray
+     * @return mixed
+     */
+    public function mapFromDataArray(array $dataArray);
 }
