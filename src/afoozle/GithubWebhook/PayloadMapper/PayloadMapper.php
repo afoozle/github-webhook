@@ -1,6 +1,7 @@
 <?php
 namespace afoozle\GithubWebhook\PayloadMapper;
 
+use afoozle\GithubWebhook\Payload\Commit;
 use afoozle\GithubWebhook\Payload\Payload;
 use afoozle\GithubWebhook\Payload\Repository;
 
@@ -105,7 +106,16 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapCommits(array $parsedData)
     {
-
+        if (array_key_exists('commits', $parsedData)){
+            $commitObjects = array();
+            foreach($parsedData['commits'] as $commitData) {
+                $commitObject = new Commit();
+                $commitMapper = new CommitMapper($commitObject);
+                $commitMapper->mapFromDataArray($commitData);
+                $commitObjects[] = $commitObject;
+            }
+            $this->getPayloadObject()->setCommits($commitObjects);
+        }
     }
 
     /**
@@ -113,7 +123,10 @@ class PayloadMapper implements PayloadMapperInterface {
      */
     private function mapHeadCommit(array $parsedData)
     {
-
+        $commitObject = new Commit();
+        $commitMapper = new CommitMapper($commitObject);
+        $commitMapper->mapFromDataArray($parsedData);
+        $this->getPayloadObject()->setHeadCommit($commitObject);
     }
 
     /**
