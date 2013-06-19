@@ -1,12 +1,15 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: afoozle
- * Date: 17/06/13
- * Time: 9:21 PM
- * To change this template use File | Settings | File Templates.
+ * Interface for a class to map values
+ *
+ * Copyright (c) Matthew Wheeler <matt@yurisko.net>
+ *
+ * For the full copyright and license information, please view the LICENSE.txt
+ * file that was distributed with this source code.
+ *
+ * @author     Matthew Wheeler <matt@yurisko.net>
+ * @license    MIT
  */
-
 namespace afoozle\GithubWebhook\PayloadMapper;
 
 
