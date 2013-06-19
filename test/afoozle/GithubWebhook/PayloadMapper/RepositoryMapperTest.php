@@ -124,10 +124,10 @@ ENDJSON;
         $this->assertEquals(2, $repositoryObject->getOpenIssues(), "OpenIssues mapped incorrectly");
     }
 
-    // @todo Owner object not mapped yet
     public function testMapOwner()
     {
-        $this->markTestSkipped('Owner object not implemented yet');
+        $repositoryObject = $this->getAndMapPayload();
+        $this->assertInstanceOf('\\afoozle\GithubWebhook\Payload\Person', $repositoryObject->getOwner());
     }
 
     public function testMapPrivate()

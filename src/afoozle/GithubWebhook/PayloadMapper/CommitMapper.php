@@ -2,6 +2,7 @@
 namespace afoozle\GithubWebhook\PayloadMapper;
 
 use afoozle\GithubWebhook\Payload\Commit;
+use afoozle\GithubWebhook\Payload\Person;
 
 class CommitMapper implements PayloadMapperInterface {
 
@@ -65,6 +66,20 @@ class CommitMapper implements PayloadMapperInterface {
 
         if (array_key_exists('url', $dataArray)) {
             $this->dataObject->setUrl(trim($dataArray['url']));
+        }
+
+        if (array_key_exists('committer', $dataArray)) {
+            $committer = new Person();
+            $personMapper = new PersonMapper($committer);
+            $personMapper->mapFromDataArray($dataArray['committer']);
+            $this->dataObject->setCommitter($committer);
+        }
+
+        if (array_key_exists('author', $dataArray)) {
+            $author = new Person();
+            $personMapper = new PersonMapper($author);
+            $personMapper->mapFromDataArray($dataArray['author']);
+            $this->dataObject->setAuthor($author);
         }
     }
 }

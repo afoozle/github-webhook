@@ -1,6 +1,7 @@
 <?php
 namespace afoozle\GithubWebhook\PayloadMapper;
 
+use afoozle\GithubWebhook\Payload\Person;
 use afoozle\GithubWebhook\Payload\Repository;
 
 class RepositoryMapper implements PayloadMapperInterface {
@@ -115,11 +116,12 @@ class RepositoryMapper implements PayloadMapperInterface {
             $this->repositoryObject->setWatchers((int)$parsedData['watchers']);
         }
 
-
-//      "owner":{
-//        "email":"lolwut@noway.biz",
-//         "name":"octokitty"
-//      },
+        if (array_key_exists('owner', $parsedData)) {
+            $owner = new Person();
+            $personMapper = new PersonMapper($owner);
+            $personMapper->mapFromDataArray($parsedData['owner']);
+            $this->repositoryObject->setOwner($owner);
+        }
 
         if (array_key_exists('pushed_at', $parsedData)) {
             $pushedAt = \DateTime::createFromFormat('U', trim($parsedData['pushed_at']), new \DateTimeZone('UTC'));

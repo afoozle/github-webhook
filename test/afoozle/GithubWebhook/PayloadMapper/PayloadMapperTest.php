@@ -217,7 +217,8 @@ ENDJSON;
     public function testMapPusher()
     {
         $payloadObject = $this->getAndMapPayload();
-        $this->assertEquals(null, $payloadObject->getPusher(), "Pusher mapped incorrectly");
+        $this->assertInstanceOf("\\afoozle\\GithubWebHook\\Payload\\Person", $payloadObject->getPusher(), "Pusher mapped incorrectly");
+        $this->assertEquals("none", $payloadObject->getPusher()->getName(), "Pusher mapped incorrectly");
     }
 
     public function testMapRef()

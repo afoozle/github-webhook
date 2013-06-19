@@ -16,12 +16,12 @@ class CommitMapperTest extends \PHPUnit_Framework_TestCase {
     "author":{
         "email":"lolwut@noway.biz",
         "name":"Garen Torikian",
-        "username":"octokitty"
+        "username":"octoauthor"
     },
     "committer":{
         "email":"lolwut@noway.biz",
         "name":"Garen Torikian",
-        "username":"octokitty"
+        "username":"octocommitter"
     },
     "distinct":true,
     "id":"1481a2de7b2a7d02428ad93446ab166be7793fbb",
@@ -58,12 +58,16 @@ ENDJSON;
 
     public function testMapAuthor()
     {
-        $this->markTestSkipped("Author/Person object not written yet");
+        $dataObject = $this->getAndMapPayload();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Payload\Person', $dataObject->getAuthor(), "Author not mapped correctly");
+        $this->assertEquals('octoauthor', $dataObject->getAuthor()->getUsername(), "Author not mapped correctly");
     }
 
     public function testMapCommitter()
     {
-        $this->markTestSkipped("Author/Person object not written yet");
+        $dataObject = $this->getAndMapPayload();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Payload\Person', $dataObject->getCommitter(), "Committer not mapped correctly");
+        $this->assertEquals('octocommitter', $dataObject->getCommitter()->getUsername(), "Committer not mapped correctly");
     }
 
     public function testMapDistinct()

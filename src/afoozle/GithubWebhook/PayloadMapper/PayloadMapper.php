@@ -3,6 +3,7 @@ namespace afoozle\GithubWebhook\PayloadMapper;
 
 use afoozle\GithubWebhook\Payload\Commit;
 use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Payload\Person;
 use afoozle\GithubWebhook\Payload\Repository;
 
 /**
@@ -88,12 +89,11 @@ class PayloadMapper implements PayloadMapperInterface {
             $this->getPayloadObject()->setForced($created);
         }
 
-        if (
-            array_key_exists('pusher', $parsedData) &&
-            array_key_exists('name', $parsedData['pusher']) &&
-            trim($parsedData['pusher']['name']) != 'none'
-        ) {
-            $this->getPayloadObject()->setPusher(trim($parsedData['pusher']['name']));
+        if (array_key_exists('pusher', $parsedData)) {
+            $pusher = new Person();
+            $personMapper = new PersonMapper($pusher);
+            $personMapper->mapFromDataArray($parsedData['pusher']);
+            $this->getPayloadObject()->setPusher($pusher);
         }
 
         if (array_key_exists('ref', $parsedData)) {

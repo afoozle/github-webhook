@@ -1,7 +1,6 @@
 <?php
 namespace afoozle\GithubWebhook\Payload;
 
-
 class Commit
 {
     /**
@@ -10,12 +9,12 @@ class Commit
     private $added = array();
 
     /**
-     * @var null
+     * @var Person
      */
     private $author = null;
 
     /**
-     * @var null
+     * @var Person
      */
     private $committer = null;
 
@@ -54,28 +53,32 @@ class Commit
      */
     private $url = null;
 
-
+    /**
+     * @param string[] $added
+     */
     public function setAdded($added)
     {
         $this->added = $added;
     }
 
+    /**
+     * @return string[]
+     */
     public function getAdded()
     {
         return $this->added;
     }
 
     /**
-     * @param null $author
+     * @param Person $author
      */
-    public function setAuthor($author)
+    public function setAuthor(Person $author)
     {
         $this->author = $author;
     }
 
     /**
-     * @todo Fixme, use real data type
-     * @return null
+     * @return Person
      */
     public function getAuthor()
     {
@@ -83,16 +86,15 @@ class Commit
     }
 
     /**
-     * @todo Fixme, use real data type
-     * @param $committer
+     * @param Person $committer
      */
-    public function setCommitter($committer)
+    public function setCommitter(Person $committer)
     {
         $this->committer = $committer;
     }
 
     /**
-     * @return null
+     * @return Person
      */
     public function getCommitter()
     {

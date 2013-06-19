@@ -99,6 +99,11 @@ class Repository {
     private $watchers = null;
 
     /**
+     * @var null
+     */
+    private $owner = null;
+
+    /**
      * @param \DateTime $createdAt
      */
     public function setCreatedAt(\DateTime $createdAt)
@@ -402,5 +407,20 @@ class Repository {
         return $this->watchers;
     }
 
+    /**
+     * @param Person $owner
+     */
+    public function setOwner(Person $owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return Person
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 
 }

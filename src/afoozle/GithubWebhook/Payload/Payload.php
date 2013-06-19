@@ -48,8 +48,7 @@ class Payload {
     private $headCommit;
 
     /**
-     * @var string
-     * @todo Check whether this needs to be an object
+     * @var Person
      */
     private $pusher;
 
@@ -192,15 +191,15 @@ class Payload {
     }
 
     /**
-     * @param string $pusher
+     * @param Person $pusher
      */
-    public function setPusher($pusher)
+    public function setPusher(Person $pusher)
     {
         $this->pusher = $pusher;
     }
 
     /**
-     * @return string
+     * @return Person
      */
     public function getPusher()
     {
