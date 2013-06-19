@@ -1,5 +1,5 @@
 {
-    "name": "afoozle/GithubWebhook",
+    "name": "afoozle/github-webhook",
     "description": "Github Webhook tools for php",
     "keywords": ["github","webhook", "web-hook", "post-receive-hook"],
     "homepage": "http://github.com/afoozle/GithubWebhook",
