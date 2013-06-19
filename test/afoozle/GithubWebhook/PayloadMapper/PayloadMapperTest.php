@@ -179,6 +179,9 @@ ENDJSON;
     {
         $payloadObject = $this->getAndMapPayload();
         $this->assertEquals(3, count($payloadObject->getCommits()), "Number of commits is incorrect");
+        foreach($payloadObject->getCommits() as $commit) {
+            $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Commit', $commit, "Commit is of incorrect type");
+        }
     }
 
     public function testMapCompare()
@@ -208,13 +211,14 @@ ENDJSON;
     public function testMapHeadCommit()
     {
         $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('HeadCommit', $payloadObject->getHeadCommit(), "Head commit is not the correct type");
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Commit', $payloadObject->getHeadCommit(), "Head commit is not the correct type");
     }
 
     public function testMapPusher()
     {
         $payloadObject = $this->getAndMapPayload();
-        $this->assertEquals(null, $payloadObject->getPusher(), "Pusher mapped incorrectly");
+        $this->assertInstanceOf("\\afoozle\\GithubWebHook\\Payload\\Person", $payloadObject->getPusher(), "Pusher mapped incorrectly");
+        $this->assertEquals("none", $payloadObject->getPusher()->getName(), "Pusher mapped incorrectly");
     }
 
     public function testMapRef()
@@ -226,6 +230,6 @@ ENDJSON;
     public function testMapRepository()
     {
         $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('Repository', $payloadObject->getRepository(), "Repository is not the correct type");
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Repository', $payloadObject->getRepository(), "Repository is not the correct type");
     }
 }
