@@ -1,9 +1,10 @@
 {
     "name": "afoozle/GithubWebhook",
     "description": "Github Webhook tools for php",
-    "keywords": ["github","webhook"],
+    "keywords": ["github","webhook", "web-hook", "post-receive-hook"],
     "homepage": "http://github.com/afoozle/GithubWebhook",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Matthew Wheeler",
