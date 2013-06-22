@@ -18,7 +18,7 @@ Usage
 
 ```php
 <?php
-use afoozle\GithubWebhook\PayloadMapper\PayloadMapper;
+use afoozle\GithubWebhook\EntityMapper\PayloadMapper;
 
 $payloadMapper = new PayloadMapper($payload);
 
