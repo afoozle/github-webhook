@@ -51,9 +51,8 @@ ENDJSON;
 
     private function getAndMapPayload()
     {
-        $commitObject = new Commit();
-        $mapper = new CommitMapper($commitObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new CommitMapper();
+        $commitObject = $mapper->mapFromJson($this->getTestJson());
         return $commitObject;
     }
 

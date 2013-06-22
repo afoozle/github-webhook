@@ -30,9 +30,8 @@ ENDJSON;
 
     private function getAndMapPayload()
     {
-        $personObject = new Person();
-        $mapper = new PersonMapper($personObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new PersonMapper();
+        $personObject = $mapper->mapFromJson($this->getTestJson());
         return $personObject;
     }
 

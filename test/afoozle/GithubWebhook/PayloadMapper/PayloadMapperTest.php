@@ -168,9 +168,8 @@ ENDJSON;
 
     private function getAndMapPayload()
     {
-        $payloadObject = new Payload();
-        $mapper = new PayloadMapper($payloadObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new PayloadMapper();
+        $payloadObject = $mapper->mapFromJson($this->getTestJson());
         return $payloadObject;
     }
 

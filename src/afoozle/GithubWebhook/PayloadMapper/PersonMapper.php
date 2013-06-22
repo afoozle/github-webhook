@@ -17,22 +17,9 @@ use afoozle\GithubWebhook\Payload\Person;
 class PersonMapper implements PayloadMapperInterface {
 
     /**
-     * @var Person
-     */
-    private $dataObject = null;
-
-    /**
-     * @param Person $person
-     */
-    public function __construct(Person $person)
-    {
-        $this->dataObject = $person;
-    }
-
-    /**
      * @param string $jsonData
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return Person
      */
     public function mapFromJson($jsonData)
     {
@@ -40,24 +27,28 @@ class PersonMapper implements PayloadMapperInterface {
         if ($parsedData === null) {
             throw new \InvalidArgumentException("Unable to parse json data: $jsonData");
         }
-        $this->mapFromDataArray($parsedData);
+        return $this->mapFromDataArray($parsedData);
     }
     /**
      * @param array $dataArray
-     * @return mixed
+     * @return Person
      */
     public function mapFromDataArray(array $dataArray)
     {
+        $person = new Person();
+        
         if (array_key_exists('name', $dataArray)) {
-            $this->dataObject->setName(trim($dataArray['name']));
+            $person->setName(trim($dataArray['name']));
         }
 
         if (array_key_exists('email', $dataArray)) {
-            $this->dataObject->setEmail(trim($dataArray['email']));
+            $person->setEmail(trim($dataArray['email']));
         }
 
         if (array_key_exists('username', $dataArray)) {
-            $this->dataObject->setUsername(trim($dataArray['username']));
+            $person->setUsername(trim($dataArray['username']));
         }
+        
+        return $person;
     }
 }

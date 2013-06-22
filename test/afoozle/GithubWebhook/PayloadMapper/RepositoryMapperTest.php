@@ -12,8 +12,6 @@
  */
 namespace afoozle\GithubWebhook\PayloadMapper;
 
-use afoozle\GithubWebhook\Payload\Repository;
-
 class RepositoryMapperTest extends \PHPUnit_Framework_TestCase {
 
     private function getTestJson()
@@ -50,9 +48,8 @@ ENDJSON;
 
     private function getAndMapPayload()
     {
-        $repositoryObject = new Repository();
-        $mapper = new RepositoryMapper($repositoryObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new RepositoryMapper();
+        $repositoryObject = $mapper->mapFromJson($this->getTestJson());
         return $repositoryObject;
     }
 

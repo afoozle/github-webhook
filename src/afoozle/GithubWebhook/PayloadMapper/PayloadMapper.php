@@ -12,10 +12,7 @@
  */
 namespace afoozle\GithubWebhook\PayloadMapper;
 
-use afoozle\GithubWebhook\Payload\Commit;
 use afoozle\GithubWebhook\Payload\Payload;
-use afoozle\GithubWebhook\Payload\Person;
-use afoozle\GithubWebhook\Payload\Repository;
 
 /**
  * Class Payload
@@ -24,31 +21,9 @@ use afoozle\GithubWebhook\Payload\Repository;
 class PayloadMapper implements PayloadMapperInterface {
 
     /**
-     * @var Payload
-     */
-    private $payloadObject = null;
-
-    /**
-     * Constructor
-     *
-     * @param Payload $payloadObject
-     */
-    public function __construct(Payload $payloadObject){
-        $this->payloadObject = $payloadObject;
-    }
-
-    /**
-     * @return Payload
-     */
-    public function getPayloadObject()
-    {
-        return $this->payloadObject;
-    }
-
-    /**
-     * @param $jsonData
-     * @return void
+     * @param string $jsonData
      * @throws \InvalidArgumentException
+     * @return \afoozle\GithubWebhook\Payload\Payload|mixed
      */
     public function mapFromJson($jsonData)
     {
@@ -56,98 +31,114 @@ class PayloadMapper implements PayloadMapperInterface {
         if ($parsedData === null) {
             throw new \InvalidArgumentException("Unable to parse json data: $jsonData");
         }
-        $this->mapFromDataArray($parsedData);
+        return $this->mapFromDataArray($parsedData);
     }
 
+    /**
+     * @param array $dataArray
+     * @return Payload
+     */
     public function mapFromDataArray(array $dataArray)
     {
-        $this->mapScalarValues($dataArray);
-        $this->mapCommits($dataArray);
-        $this->mapHeadCommit($dataArray);
-        $this->mapRepository($dataArray);
+        $payload = new Payload();
+        $this->mapScalarValues($payload, $dataArray);
+        $this->mapCommits($payload, $dataArray);
+        $this->mapHeadCommit($payload, $dataArray);
+        $this->mapRepository($payload, $dataArray);
+
+        return $payload;
     }
 
     /**
      * Map all scalar values into the payload object
+     * @param \afoozle\GithubWebhook\Payload\Payload $payload
      * @param array $parsedData
+     * @return \afoozle\GithubWebhook\Payload\Payload
      */
-    private function mapScalarValues(array $parsedData)
+    private function mapScalarValues(Payload $payload, array $parsedData)
     {
         if (array_key_exists('after', $parsedData)) {
-            $this->getPayloadObject()->setAfter(trim($parsedData['after']));
+            $payload->setAfter(trim($parsedData['after']));
         }
 
         if (array_key_exists('before', $parsedData)) {
-            $this->getPayloadObject()->setBefore(trim($parsedData['before']));
+            $payload->setBefore(trim($parsedData['before']));
         }
 
         if (array_key_exists('compare', $parsedData)) {
-            $this->getPayloadObject()->setCompare(trim($parsedData['compare']));
+            $payload->setCompare(trim($parsedData['compare']));
         }
 
         if (array_key_exists('created', $parsedData)) {
             $created = $parsedData['created'] == 'true' ? true : false;
-            $this->getPayloadObject()->setCreated($created);
+            $payload->setCreated($created);
         }
 
         if (array_key_exists('deleted', $parsedData)) {
             $created = $parsedData['deleted'] == 'true' ? true : false;
-            $this->getPayloadObject()->setDeleted($created);
+            $payload->setDeleted($created);
         }
 
         if (array_key_exists('forced', $parsedData)) {
             $created = $parsedData['forced'] == 'true' ? true : false;
-            $this->getPayloadObject()->setForced($created);
+            $payload->setForced($created);
         }
 
         if (array_key_exists('pusher', $parsedData)) {
-            $pusher = new Person();
-            $personMapper = new PersonMapper($pusher);
-            $personMapper->mapFromDataArray($parsedData['pusher']);
-            $this->getPayloadObject()->setPusher($pusher);
+            $personMapper = new PersonMapper();
+            $pusher = $personMapper->mapFromDataArray($parsedData['pusher']);
+            $payload->setPusher($pusher);
         }
 
         if (array_key_exists('ref', $parsedData)) {
-            $this->getPayloadObject()->setRef($parsedData['ref']);
+            $payload->setRef($parsedData['ref']);
         }
+
+        return $payload;
     }
 
     /**
+     * @param \afoozle\GithubWebhook\Payload\Payload $payload
      * @param array $parsedData
+     * @return \afoozle\GithubWebhook\Payload\Payload
      */
-    private function mapCommits(array $parsedData)
+    private function mapCommits(Payload $payload, array $parsedData)
     {
         if (array_key_exists('commits', $parsedData)){
             $commitObjects = array();
             foreach($parsedData['commits'] as $commitData) {
-                $commitObject = new Commit();
-                $commitMapper = new CommitMapper($commitObject);
-                $commitMapper->mapFromDataArray($commitData);
+                $commitMapper = new CommitMapper();
+                $commitObject = $commitMapper->mapFromDataArray($commitData);
                 $commitObjects[] = $commitObject;
             }
-            $this->getPayloadObject()->setCommits($commitObjects);
+            $payload->setCommits($commitObjects);
         }
+        return $payload;
     }
 
     /**
+     * @param \afoozle\GithubWebhook\Payload\Payload $payload
      * @param array $parsedData
+     * @return \afoozle\GithubWebhook\Payload\Payload
      */
-    private function mapHeadCommit(array $parsedData)
+    private function mapHeadCommit(Payload $payload, array $parsedData)
     {
-        $commitObject = new Commit();
-        $commitMapper = new CommitMapper($commitObject);
-        $commitMapper->mapFromDataArray($parsedData);
-        $this->getPayloadObject()->setHeadCommit($commitObject);
+        $commitMapper = new CommitMapper();
+        $commitObject = $commitMapper->mapFromDataArray($parsedData);
+        $payload->setHeadCommit($commitObject);
+        return $payload;
     }
 
     /**
+     * @param \afoozle\GithubWebhook\Payload\Payload $payload
      * @param array $parsedData
+     * @return \afoozle\GithubWebhook\Payload\Payload
      */
-    private function mapRepository(array $parsedData)
+    private function mapRepository(Payload $payload, array $parsedData)
     {
-        $repositoryObject = new Repository();
-        $repositoryMapper = new RepositoryMapper($repositoryObject);
-        $repositoryMapper->mapFromDataArray($parsedData['repository']);
-        $this->getPayloadObject()->setRepository($repositoryObject);
+        $repositoryMapper = new RepositoryMapper();
+        $repositoryObject = $repositoryMapper->mapFromDataArray($parsedData['repository']);
+        $payload->setRepository($repositoryObject);
+        return $payload;
     }
 }

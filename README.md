@@ -18,15 +18,13 @@ Usage
 
 ```php
 <?php
-use afoozle\GithubWebhook\PayloadMapper\PayloadMapper
-    afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\PayloadMapper\PayloadMapper;
 
-$payload = new Payload();
 $payloadMapper = new PayloadMapper($payload);
 
-$payloadMapper->mapFromJson($yourJsonFormattedData);
+$payload = $payloadMapper->mapFromJson($yourJsonFormattedData);
 // or
-$payloadMapper->mapFromDataArray($yourArrayOfData);
+$payload = $payloadMapper->mapFromDataArray($yourArrayOfData);
 
 var_dump($payload);
 ```
