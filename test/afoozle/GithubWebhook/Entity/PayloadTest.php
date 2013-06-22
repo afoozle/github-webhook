@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for Paylad
+ * Tests for Payload
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -16,6 +16,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
     public function testClassInstantiation()
     {
-        $payload = new Entity();
+        $payload = new Payload();
     }
 }

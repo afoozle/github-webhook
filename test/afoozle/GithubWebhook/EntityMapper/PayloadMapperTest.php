@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for EntityMapper
+ * Tests for PayloadMapper
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -12,7 +12,7 @@
  */
 namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Entity\Entity;
+use afoozle\GithubWebhook\Entity\Payload;
 
 class EntityMapperTest extends \PHPUnit_Framework_TestCase {
 
@@ -168,7 +168,7 @@ ENDJSON;
 
     private function getAndMapEntity()
     {
-        $mapper = new EntityMapper();
+        $mapper = new PayloadMapper();
         $payloadObject = $mapper->mapFromJson($this->getTestJson());
         return $payloadObject;
     }
