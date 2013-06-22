@@ -1,6 +1,6 @@
 <?php
 /**
- * Mapper class to map values into a Payload
+ * Mapper class to map values into a Entity
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -10,20 +10,20 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Entity\Entity;
 
 /**
- * Class Payload
- * @package afoozle\GithubWebhook\PayloadMapper
+ * Class Entity
+ * @package afoozle\GithubWebhook\EntityMapper
  */
-class PayloadMapper implements PayloadMapperInterface {
+class EntityMapper implements EntityMapperInterface {
 
     /**
      * @param string $jsonData
      * @throws \InvalidArgumentException
-     * @return \afoozle\GithubWebhook\Payload\Payload|mixed
+     * @return \afoozle\GithubWebhook\Entity\Entity|mixed
      */
     public function mapFromJson($jsonData)
     {
@@ -36,11 +36,11 @@ class PayloadMapper implements PayloadMapperInterface {
 
     /**
      * @param array $dataArray
-     * @return Payload
+     * @return Entity
      */
     public function mapFromDataArray(array $dataArray)
     {
-        $payload = new Payload();
+        $payload = new Entity();
         $this->mapScalarValues($payload, $dataArray);
         $this->mapCommits($payload, $dataArray);
         $this->mapHeadCommit($payload, $dataArray);
@@ -51,11 +51,11 @@ class PayloadMapper implements PayloadMapperInterface {
 
     /**
      * Map all scalar values into the payload object
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Entity $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Entity
      */
-    private function mapScalarValues(Payload $payload, array $parsedData)
+    private function mapScalarValues(Entity $payload, array $parsedData)
     {
         if (array_key_exists('after', $parsedData)) {
             $payload->setAfter(trim($parsedData['after']));
@@ -98,11 +98,11 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Entity $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Entity
      */
-    private function mapCommits(Payload $payload, array $parsedData)
+    private function mapCommits(Entity $payload, array $parsedData)
     {
         if (array_key_exists('commits', $parsedData)){
             $commitObjects = array();
@@ -117,11 +117,11 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Entity $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Entity
      */
-    private function mapHeadCommit(Payload $payload, array $parsedData)
+    private function mapHeadCommit(Entity $payload, array $parsedData)
     {
         $commitMapper = new CommitMapper();
         $commitObject = $commitMapper->mapFromDataArray($parsedData);
@@ -130,11 +130,11 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Entity $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Entity
      */
-    private function mapRepository(Payload $payload, array $parsedData)
+    private function mapRepository(Entity $payload, array $parsedData)
     {
         $repositoryMapper = new RepositoryMapper();
         $repositoryObject = $repositoryMapper->mapFromDataArray($parsedData['repository']);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Entity class representing a Webhook Payload
+ * Entity class representing a Webhook Entity
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -10,13 +10,13 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
 /**
- * Class Payload
- * @package afoozle\GithubWebhook\Payload
+ * Class Entity
+ * @package afoozle\GithubWebhook\Entity
  */
-class Payload {
+class Entity {
 
     /**
      * @var string git SHA hash

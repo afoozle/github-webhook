@@ -10,11 +10,11 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Repository;
+use afoozle\GithubWebhook\Entity\Repository;
 
-class RepositoryMapper implements PayloadMapperInterface {
+class RepositoryMapper implements EntityMapperInterface {
 
     /**
      * @param $jsonData

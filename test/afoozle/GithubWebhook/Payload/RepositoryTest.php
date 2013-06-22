@@ -10,7 +10,7 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
 class RepositoryTest extends \PHPUnit_Framework_TestCase {
 

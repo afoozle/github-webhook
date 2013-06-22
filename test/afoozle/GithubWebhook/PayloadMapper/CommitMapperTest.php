@@ -10,9 +10,9 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Commit;
+use afoozle\GithubWebhook\Entity\Commit;
 
 class CommitMapperTest extends \PHPUnit_Framework_TestCase {
 
@@ -49,7 +49,7 @@ ENDJSON;
         return $testJson;
     }
 
-    private function getAndMapPayload()
+    private function getAndMapEntity()
     {
         $mapper = new CommitMapper();
         $commitObject = $mapper->mapFromJson($this->getTestJson());
@@ -58,7 +58,7 @@ ENDJSON;
 
     public function testMapAdded()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals(
             array("words/madame-bovary.txt","words/funkatron.md"),
             $dataObject->getAdded(),
@@ -68,58 +68,58 @@ ENDJSON;
 
     public function testMapAuthor()
     {
-        $dataObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Payload\Person', $dataObject->getAuthor(), "Author not mapped correctly");
+        $dataObject = $this->getAndMapEntity();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Entity\Person', $dataObject->getAuthor(), "Author not mapped correctly");
         $this->assertEquals('octoauthor', $dataObject->getAuthor()->getUsername(), "Author not mapped correctly");
     }
 
     public function testMapCommitter()
     {
-        $dataObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Payload\Person', $dataObject->getCommitter(), "Committer not mapped correctly");
+        $dataObject = $this->getAndMapEntity();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\Entity\Person', $dataObject->getCommitter(), "Committer not mapped correctly");
         $this->assertEquals('octocommitter', $dataObject->getCommitter()->getUsername(), "Committer not mapped correctly");
     }
 
     public function testMapDistinct()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals(true, $dataObject->isDistinct(), "Distinct mapped incorrectly");
     }
 
     public function testMapId()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals("1481a2de7b2a7d02428ad93446ab166be7793fbb", $dataObject->getId(), "Id mapped incorrectly");
     }
 
     public function testMapMessage()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals("Rename madame-bovary.txt to words/madame-bovary.txt", $dataObject->getMessage(), "Message mapped incorrectly");
     }
 
     public function testMapModified()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals(array(), $dataObject->getModified(), "Modified mapped incorrectly");
     }
 
     public function testMapRemoved()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals(array("madame-bovary.txt"), $dataObject->getRemoved(), "Removed mapped incorrectly");
     }
 
     public function testMapTimestamp()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $expectedTimestamp = new \DateTime("2013-03-12T08:14:29-07:00");
         $this->assertEquals($expectedTimestamp, $dataObject->getTimestamp(), "Timestamp mapped incorrectly");
     }
 
     public function testMapUrl()
     {
-        $dataObject = $this->getAndMapPayload();
+        $dataObject = $this->getAndMapEntity();
         $this->assertEquals(
             "https://github.com/octokitty/testing/commit/1481a2de7b2a7d02428ad93446ab166be7793fbb",
             $dataObject->getUrl(),

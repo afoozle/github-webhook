@@ -10,11 +10,11 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Commit;
+use afoozle\GithubWebhook\Entity\Commit;
 
-class CommitMapper implements PayloadMapperInterface {
+class CommitMapper implements EntityMapperInterface {
 
     /**
      * @param string $jsonData

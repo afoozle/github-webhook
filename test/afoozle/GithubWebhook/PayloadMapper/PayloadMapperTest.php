@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for PayloadMapper
+ * Tests for EntityMapper
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -10,11 +10,11 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Entity\Entity;
 
-class PayloadMapperTest extends \PHPUnit_Framework_TestCase {
+class EntityMapperTest extends \PHPUnit_Framework_TestCase {
 
     private function getTestJson()
     {
@@ -166,80 +166,80 @@ ENDJSON;
         return $testData;
     }
 
-    private function getAndMapPayload()
+    private function getAndMapEntity()
     {
-        $mapper = new PayloadMapper();
+        $mapper = new EntityMapper();
         $payloadObject = $mapper->mapFromJson($this->getTestJson());
         return $payloadObject;
     }
 
     public function testMapAfter()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals('1481a2de7b2a7d02428ad93446ab166be7793fbb', $payloadObject->getAfter(), "After was mapped incorrectly");
     }
 
     public function testMapBefore()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals('17c497ccc7cca9c2f735aa07e9e3813060ce9a6a', $payloadObject->getBefore(), "Before was mapped incorrectly");
     }
 
     public function testMapCommits()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals(3, count($payloadObject->getCommits()), "Number of commits is incorrect");
         foreach($payloadObject->getCommits() as $commit) {
-            $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Commit', $commit, "Commit is of incorrect type");
+            $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Entity\\Commit', $commit, "Commit is of incorrect type");
         }
     }
 
     public function testMapCompare()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals('https://github.com/octokitty/testing/compare/17c497ccc7cc...1481a2de7b2a', $payloadObject->getCompare(), "Compare mapped incorrectly");
     }
 
     public function testMapCreated()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals(false, $payloadObject->getCreated(), "Created mapped incorrectly");
     }
 
     public function testMapDeleted()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals(true, $payloadObject->getDeleted(), "Deleted mapped incorrectly");
     }
 
     public function testMapForced()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals(false, $payloadObject->getForced(), "Forced mapped incorrectly");
     }
 
     public function testMapHeadCommit()
     {
-        $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Commit', $payloadObject->getHeadCommit(), "Head commit is not the correct type");
+        $payloadObject = $this->getAndMapEntity();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Entity\\Commit', $payloadObject->getHeadCommit(), "Head commit is not the correct type");
     }
 
     public function testMapPusher()
     {
-        $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf("\\afoozle\\GithubWebHook\\Payload\\Person", $payloadObject->getPusher(), "Pusher mapped incorrectly");
+        $payloadObject = $this->getAndMapEntity();
+        $this->assertInstanceOf("\\afoozle\\GithubWebHook\\Entity\\Person", $payloadObject->getPusher(), "Pusher mapped incorrectly");
         $this->assertEquals("none", $payloadObject->getPusher()->getName(), "Pusher mapped incorrectly");
     }
 
     public function testMapRef()
     {
-        $payloadObject = $this->getAndMapPayload();
+        $payloadObject = $this->getAndMapEntity();
         $this->assertEquals('refs/heads/master', $payloadObject->getRef(), "Ref mapped incorrectly");
     }
 
     public function testMapRepository()
     {
-        $payloadObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Payload\\Repository', $payloadObject->getRepository(), "Repository is not the correct type");
+        $payloadObject = $this->getAndMapEntity();
+        $this->assertInstanceOf('\\afoozle\\GithubWebhook\\Entity\\Repository', $payloadObject->getRepository(), "Repository is not the correct type");
     }
 }
