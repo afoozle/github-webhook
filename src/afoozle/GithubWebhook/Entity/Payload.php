@@ -10,11 +10,11 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
 /**
  * Class Payload
- * @package afoozle\GithubWebhook\Payload
+ * @package afoozle\GithubWebhook\Entity
  */
 class Payload {
 

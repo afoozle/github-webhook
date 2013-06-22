@@ -11,7 +11,7 @@
  * @license    MIT
  */
 
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
 class Commit
 {

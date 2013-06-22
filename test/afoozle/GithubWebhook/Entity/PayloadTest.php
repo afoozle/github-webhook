@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for Paylad
+ * Tests for Payload
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -10,9 +10,9 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
-class PayloadTest extends \PHPUnit_Framework_TestCase {
+class EntityTest extends \PHPUnit_Framework_TestCase {
 
     public function testClassInstantiation()
     {

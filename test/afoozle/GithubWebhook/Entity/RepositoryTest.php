@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for Person
+ * Tests for Repository
  *
  * Copyright (c) Matthew Wheeler <matt@yurisko.net>
  *
@@ -10,12 +10,12 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
-class PersonTest extends \PHPUnit_Framework_TestCase
-{
+class RepositoryTest extends \PHPUnit_Framework_TestCase {
+
     public function testObjectInstantiation()
     {
-        $person = new Person();
+        $repository = new Repository();
     }
 }

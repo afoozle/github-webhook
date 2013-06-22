@@ -10,20 +10,20 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Payload;
+use afoozle\GithubWebhook\Entity\Payload;
 
 /**
- * Class Payload
- * @package afoozle\GithubWebhook\PayloadMapper
+ * Class Entity
+ * @package afoozle\GithubWebhook\EntityMapper
  */
-class PayloadMapper implements PayloadMapperInterface {
+class PayloadMapper implements EntityMapperInterface {
 
     /**
      * @param string $jsonData
      * @throws \InvalidArgumentException
-     * @return \afoozle\GithubWebhook\Payload\Payload|mixed
+     * @return \afoozle\GithubWebhook\Entity\Payload
      */
     public function mapFromJson($jsonData)
     {
@@ -51,9 +51,9 @@ class PayloadMapper implements PayloadMapperInterface {
 
     /**
      * Map all scalar values into the payload object
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Payload $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Payload
      */
     private function mapScalarValues(Payload $payload, array $parsedData)
     {
@@ -98,9 +98,9 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Payload $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Payload
      */
     private function mapCommits(Payload $payload, array $parsedData)
     {
@@ -117,9 +117,9 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Payload $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Payload
      */
     private function mapHeadCommit(Payload $payload, array $parsedData)
     {
@@ -130,9 +130,9 @@ class PayloadMapper implements PayloadMapperInterface {
     }
 
     /**
-     * @param \afoozle\GithubWebhook\Payload\Payload $payload
+     * @param \afoozle\GithubWebhook\Entity\Payload $payload
      * @param array $parsedData
-     * @return \afoozle\GithubWebhook\Payload\Payload
+     * @return \afoozle\GithubWebhook\Entity\Payload
      */
     private function mapRepository(Payload $payload, array $parsedData)
     {
