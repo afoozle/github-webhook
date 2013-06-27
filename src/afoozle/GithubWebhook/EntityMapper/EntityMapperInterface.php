@@ -10,10 +10,10 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
 
-interface PayloadMapperInterface {
+interface EntityMapperInterface {
     /**
      * @param string $jsonData
      * @return mixed

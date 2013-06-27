@@ -10,9 +10,7 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
-
-use afoozle\GithubWebhook\Payload\Repository;
+namespace afoozle\GithubWebhook\EntityMapper;
 
 class RepositoryMapperTest extends \PHPUnit_Framework_TestCase {
 
@@ -48,133 +46,132 @@ ENDJSON;
         return $testJson;
     }
 
-    private function getAndMapPayload()
+    private function getAndMapEntity()
     {
-        $repositoryObject = new Repository();
-        $mapper = new RepositoryMapper($repositoryObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new RepositoryMapper();
+        $repositoryObject = $mapper->mapFromJson($this->getTestJson());
         return $repositoryObject;
     }
 
     public function testMapCreatedAt()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $expectedDate = \DateTime::createFromFormat('U', '1332977768',new \DateTimeZone('UTC'));
         $this->assertEquals($expectedDate, $repositoryObject->getCreatedAt(), "CreatedAt mapped incorrectly");
     }
 
     public function testMapDescription()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals('repository description', $repositoryObject->getDescription(), "Description mapped incorrectly");
     }
 
     public function testMapFork()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(true, $repositoryObject->isFork(), "Fork mapped incorrectly");
     }
 
     public function testMapForks()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(2, $repositoryObject->getForks(), "Forks mapped incorrectly");
     }
 
     public function testMapHasDownloads()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(true, $repositoryObject->hasDownloads(), "HasDownloads mapped incorrectly");
     }
 
     public function testMapHasIssues()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(true, $repositoryObject->hasIssues(), "HasIssues mapped incorrectly");
     }
 
     public function testMapHasWiki()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(true, $repositoryObject->hasWiki(), "HasWiki mapped incorrectly");
     }
 
     public function testMapHomepage()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals("http://abc.example.com", $repositoryObject->getHomepage(), "Homepage mapped incorrectly");
     }
 
     public function testMapId()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(3860742, $repositoryObject->getId(), "Id mapped incorrectly");
     }
 
     public function testMapLanguage()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals("PHP", $repositoryObject->getLanguage(), "Language mapped incorrectly");
     }
 
     public function testMapMasterBranch()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals("master", $repositoryObject->getMasterBranch(), "MasterBranch mapped incorrectly");
     }
 
     public function testMapName()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals("testing", $repositoryObject->getName(), "Name mapped incorrectly");
     }
 
     public function testMapOpenIssues()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(2, $repositoryObject->getOpenIssues(), "OpenIssues mapped incorrectly");
     }
 
     public function testMapOwner()
     {
-        $repositoryObject = $this->getAndMapPayload();
-        $this->assertInstanceOf('\\afoozle\GithubWebhook\Payload\Person', $repositoryObject->getOwner());
+        $repositoryObject = $this->getAndMapEntity();
+        $this->assertInstanceOf('\\afoozle\GithubWebhook\Entity\Person', $repositoryObject->getOwner());
     }
 
     public function testMapPrivate()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(false, $repositoryObject->isPrivate(), "Private mapped incorrectly");
     }
 
     public function testMapPushedAt()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $expectedDate = \DateTime::createFromFormat('U', '1363295520',new \DateTimeZone('UTC'));
         $this->assertEquals($expectedDate, $repositoryObject->getPushedAt(), "PushedAt mapped incorrectly");
     }
 
     public function testMapSize()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(2156, $repositoryObject->getSize(), "Size mapped incorrectly");
     }
 
     public function testMapStargazers()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(1, $repositoryObject->getStargazers(), "Stargazers mapped incorrectly");
     }
 
     public function testMapUrl()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals("https://github.com/octokitty/testing", $repositoryObject->getUrl(), "Url mapped incorrectly");
     }
 
     public function testMapWatchers()
     {
-        $repositoryObject = $this->getAndMapPayload();
+        $repositoryObject = $this->getAndMapEntity();
         $this->assertEquals(1, $repositoryObject->getWatchers(), "Watchers mapped incorrectly");
     }
 }

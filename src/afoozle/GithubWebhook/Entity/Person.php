@@ -10,9 +10,9 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
-class Person {
+class Person implements SerializableEntityInterface {
 
     /**
      * @var string
@@ -78,4 +78,23 @@ class Person {
     }
 
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+            'username' => $this->getUsername()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }

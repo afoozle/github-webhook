@@ -11,9 +11,9 @@
  * @license    MIT
  */
 
-namespace afoozle\GithubWebhook\Payload;
+namespace afoozle\GithubWebhook\Entity;
 
-class Commit
+class Commit implements SerializableEntityInterface
 {
     /**
      * @var string[]
@@ -225,4 +225,29 @@ class Commit
         return $this->url;
     }
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'added' => $this->getAdded(),
+            'author' => ($this->getAuthor() == null) ? null : $this->getAuthor()->jsonSerialize(),
+            'committer' => ($this->getCommitter() == null) ? null : $this->getCommitter()->jsonSerialize(),
+            'distinct' => $this->isDistinct(),
+            'id' => $this->getId(),
+            'message' => $this->getMessage(),
+            'modified' => $this->getModified(),
+            'removed' => $this->getRemoved(),
+            'timestamp' => ($this->getTimestamp() == null) ? null : $this->getTimestamp()->format('Y-m-d H:i:s')
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }

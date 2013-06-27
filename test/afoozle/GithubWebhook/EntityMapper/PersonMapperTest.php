@@ -10,9 +10,9 @@
  * @author     Matthew Wheeler <matt@yurisko.net>
  * @license    MIT
  */
-namespace afoozle\GithubWebhook\PayloadMapper;
+namespace afoozle\GithubWebhook\EntityMapper;
 
-use afoozle\GithubWebhook\Payload\Person;
+use afoozle\GithubWebhook\Entity\Person;
 
 class PersonMapperTest extends \PHPUnit_Framework_TestCase {
 
@@ -28,29 +28,28 @@ ENDJSON;
         return $testJson;
     }
 
-    private function getAndMapPayload()
+    private function getAndMapEntity()
     {
-        $personObject = new Person();
-        $mapper = new PersonMapper($personObject);
-        $mapper->mapFromJson($this->getTestJson());
+        $mapper = new PersonMapper();
+        $personObject = $mapper->mapFromJson($this->getTestJson());
         return $personObject;
     }
 
     public function testMapName()
     {
-        $personObject = $this->getAndMapPayload();
+        $personObject = $this->getAndMapEntity();
         $this->assertEquals("Garen Torikian", $personObject->getName(), "Name mapped incorrectly");
     }
 
     public function testMapEmail()
     {
-        $personObject = $this->getAndMapPayload();
+        $personObject = $this->getAndMapEntity();
         $this->assertEquals("lolwut@noway.biz", $personObject->getEmail(), "Email mapped incorrectly");
     }
 
     public function testMapUsername()
     {
-        $personObject = $this->getAndMapPayload();
+        $personObject = $this->getAndMapEntity();
         $this->assertEquals("octokitty", $personObject->getUsername(), "Username mapped incorrectly");
     }
 }
