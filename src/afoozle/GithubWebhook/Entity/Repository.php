@@ -12,7 +12,7 @@
  */
 namespace afoozle\GithubWebhook\Entity;
 
-class Repository {
+class Repository implements SerializableEntityInterface {
 
     /**
      * @var \DateTime
@@ -434,4 +434,40 @@ class Repository {
         return $this->owner;
     }
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'createdAt' => ($this->getCreatedAt() == null) ? null : $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'description' => $this->getDescription(),
+            'isFork' => $this->isFork(),
+            'forks' => $this->getForks(),
+            'hasDownloads' => $this->hasDownloads(),
+            'hasIssues' => $this->hasIssues(),
+            'hasWiki' => $this->hasWiki(),
+            'homepage' => $this->getHomepage(),
+            'id' => $this->getId(),
+            'language' => $this->getLanguage(),
+            'masterBranch' => $this->getMasterBranch(),
+            'name' => $this->getName(),
+            'openIssues' => $this->getOpenIssues(),
+            'isPrivate' => $this->isPrivate(),
+            'pushedAt' => $this->getPushedAt(),
+            'size' => $this->getSize(),
+            'stargazers' => $this->getStargazers(),
+            'url' => $this->getUrl(),
+            'watchers' => $this->getWatchers(),
+            'owner' => $this->getOwner()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }

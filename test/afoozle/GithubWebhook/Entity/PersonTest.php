@@ -18,4 +18,18 @@ class PersonTest extends \PHPUnit_Framework_TestCase
     {
         $person = new Person();
     }
+
+    public function testToString()
+    {
+        $commit = new Person();
+        $this->assertInternalType('string', $commit->__toString());
+        $this->assertGreaterThan(0, strlen($commit->__toString()));
+    }
+
+    public function testJsonSerialize()
+    {
+        $commit = new Person();
+        $commit->setName('Name');
+        $this->assertInternalType('array', $commit->jsonSerialize());
+    }
 }

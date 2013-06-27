@@ -18,4 +18,18 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase {
     {
         $repository = new Repository();
     }
+
+    public function testToString()
+    {
+        $commit = new Repository();
+        $this->assertInternalType('string', $commit->__toString());
+        $this->assertGreaterThan(0, strlen($commit->__toString()));
+    }
+
+    public function testJsonSerialize()
+    {
+        $commit = new Repository();
+        $commit->setName('Name');
+        $this->assertInternalType('array', $commit->jsonSerialize());
+    }
 }

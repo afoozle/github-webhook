@@ -18,4 +18,18 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
     {
         $payload = new Payload();
     }
+
+    public function testToString()
+    {
+        $commit = new Payload();
+        $this->assertInternalType('string', $commit->__toString());
+        $this->assertGreaterThan(0, strlen($commit->__toString()));
+    }
+
+    public function testJsonSerialize()
+    {
+        $commit = new Payload();
+        $commit->setAfter('After');
+        $this->assertInternalType('array', $commit->jsonSerialize());
+    }
 }

@@ -16,7 +16,7 @@ namespace afoozle\GithubWebhook\Entity;
  * Class Payload
  * @package afoozle\GithubWebhook\Entity
  */
-class Payload {
+class Payload implements SerializableEntityInterface {
 
     /**
      * @var string git SHA hash
@@ -234,19 +234,53 @@ class Payload {
     }
 
     /**
-     * @param mixed $repository
+     * @param Repository $repository
      */
-    public function setRepository($repository)
+    public function setRepository(Repository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @return mixed
+     * @return Repository
      */
     public function getRepository()
     {
         return $this->repository;
     }
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $commits = array();
+        if ($this->getCommits() !== null && count($this->getCommits())) {
+            foreach($this->getCommits() as $commit) {
+                $commits[] = $commit->jsonSerialize();
+            }
+        }
+
+        return array(
+            'after' => $this->getAfter(),
+            'before' => $this->getBefore(),
+            'commits' => $commits,
+            'compare' => $this->getCompare(),
+            'created' => $this->getCreated(),
+            'deleted' => $this->getDeleted(),
+            'forced' => $this->getForced(),
+            'headCommit' => ($this->getHeadCommit() == null) ? null : $this->getHeadCommit()->jsonSerialize(),
+            'pusher' => ($this->getPusher() == null) ? null : $this->getPusher()->jsonSerialize(),
+            'ref' => $this->getRef(),
+            'repository' => ($this->getRepository() == null) ? null : $this->getRepository()->jsonSerialize()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }

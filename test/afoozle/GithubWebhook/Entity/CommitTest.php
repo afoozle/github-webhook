@@ -19,4 +19,17 @@ class CommitTest extends \PHPUnit_Framework_TestCase {
         $commit = new Commit();
     }
 
+    public function testToString()
+    {
+        $commit = new Commit();
+        $this->assertInternalType('string', $commit->__toString());
+        $this->assertGreaterThan(0, strlen($commit->__toString()));
+    }
+
+    public function testJsonSerialize()
+    {
+        $commit = new Commit();
+        $commit->setMessage('Message');
+        $this->assertInternalType('array', $commit->jsonSerialize());
+    }
 }
