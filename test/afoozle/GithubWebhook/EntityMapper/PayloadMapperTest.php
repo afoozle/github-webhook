@@ -173,6 +173,19 @@ ENDJSON;
         return $payloadObject;
     }
 
+    public function testMapWithInvalidJson()
+    {
+        $mapper = new PayloadMapper();
+
+        try {
+            $mapper->mapFromJson('this is not json');
+            $this->fail("An expected InvalidArgumentException was not thrown");
+        }
+        catch (\InvalidArgumentException $expected){
+            return;
+        }
+    }
+
     public function testMapAfter()
     {
         $payloadObject = $this->getAndMapEntity();

@@ -56,6 +56,19 @@ ENDJSON;
         return $commitObject;
     }
 
+    public function testMapWithInvalidJson()
+    {
+        $mapper = new CommitMapper();
+
+        try {
+            $mapper->mapFromJson('this is not json');
+            $this->fail("An expected InvalidArgumentException was not thrown");
+        }
+        catch (\InvalidArgumentException $expected){
+            return;
+        }
+    }
+
     public function testMapAdded()
     {
         $dataObject = $this->getAndMapEntity();
