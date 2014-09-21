@@ -110,7 +110,7 @@ class Repository implements SerializableEntityInterface {
     private $watchers = null;
 
     /**
-     * @var null
+     * @var Person
      */
     private $owner = null;
 
