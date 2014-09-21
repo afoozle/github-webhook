@@ -17,9 +17,11 @@
         "psr/log": ">=1.0,<2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "4.2.*"
     },
     "autoload": {
-        "psr-0": {"afoozle": "src/"}
+        "psr-4": {
+            "afoozle\\GithubWebhook\\": "src/"
+        }
     }
 }

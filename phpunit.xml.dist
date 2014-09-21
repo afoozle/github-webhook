@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
+        bootstrap="./vendor/autoload.php"
         stopOnError="true"
         stopOnFailure="false"
         stopOnIncomplete="false"
@@ -10,14 +11,14 @@
     <!-- Test Locations -->
     <testsuites>
         <testsuite>
-            <directory>test/afoozle/GithubWebhook</directory>
+            <directory>test</directory>
         </testsuite>
     </testsuites>
 
     <!-- Coverage Filtering -->
     <filter>
         <whitelist>
-            <directory suffix=".php">src/afoozle/GithubWebhook</directory>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 

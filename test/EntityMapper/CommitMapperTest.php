@@ -38,6 +38,7 @@ class CommitMapperTest extends \PHPUnit_Framework_TestCase {
     "id":"1481a2de7b2a7d02428ad93446ab166be7793fbb",
     "message":"Rename madame-bovary.txt to words/madame-bovary.txt",
     "modified":[
+        "madame-bovary.txt"
     ],
     "removed":[
        "madame-bovary.txt"
