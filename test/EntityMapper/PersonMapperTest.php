@@ -28,6 +28,19 @@ ENDJSON;
         return $testJson;
     }
 
+    public function testMapWithInvalidJson()
+    {
+        $mapper = new PersonMapper();
+
+        try {
+            $mapper->mapFromJson('this is not json');
+            $this->fail("An expected InvalidArgumentException was not thrown");
+        }
+        catch (\InvalidArgumentException $expected){
+            return;
+        }
+    }
+
     private function getAndMapEntity()
     {
         $mapper = new PersonMapper();

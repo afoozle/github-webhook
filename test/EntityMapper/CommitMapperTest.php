@@ -38,6 +38,7 @@ class CommitMapperTest extends \PHPUnit_Framework_TestCase {
     "id":"1481a2de7b2a7d02428ad93446ab166be7793fbb",
     "message":"Rename madame-bovary.txt to words/madame-bovary.txt",
     "modified":[
+        "madame-bovary.txt"
     ],
     "removed":[
        "madame-bovary.txt"
@@ -54,6 +55,19 @@ ENDJSON;
         $mapper = new CommitMapper();
         $commitObject = $mapper->mapFromJson($this->getTestJson());
         return $commitObject;
+    }
+
+    public function testMapWithInvalidJson()
+    {
+        $mapper = new CommitMapper();
+
+        try {
+            $mapper->mapFromJson('this is not json');
+            $this->fail("An expected InvalidArgumentException was not thrown");
+        }
+        catch (\InvalidArgumentException $expected){
+            return;
+        }
     }
 
     public function testMapAdded()
